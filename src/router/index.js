@@ -7,13 +7,14 @@ import Goods from '../views/Goods.vue'
 import GoodsEdit from '../views/GoodsEdit.vue'
 import Reg from '../views/Reg.vue'
 import Login from '../views/Login.vue'
-
+import Order from '../views/Order.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -22,32 +23,41 @@ Vue.use(VueRouter)
     redirect: '/user'
   },
   {
-    path: '/',
+    path: '/user',
     name: 'User',
     component: User
   },
   {
-    path: 'edit/:id',
+    path: '/useredit/:id',
     name: 'userEdit',
     component: UserEdit
   },
   {
-    path: '/',
+    path: '/goods',
     name: 'Goods',
     component: Goods
   },
   {
-    path: 'goods/:id',
+    path: '/goodsedit/:id',
     name: 'goodsEdit',
     component: GoodsEdit
   },
   {
-    path: 'reg',
+    path: '/order',
+    name: 'Order',
+    component: Order
+  },
+  {
+    path: '/reg',
     component: Reg
   },
   {
-    path: 'login',
+    path: '/login',
     component: Login
+  },
+  {
+    path: '/404',
+    component: NotFound
   },
   {
     path:'*',
