@@ -1,6 +1,6 @@
 <template>
     <div>
-        用户登录
+        商品编辑
     </div>
 </template>
 <script>
