@@ -50,6 +50,10 @@ Vue.use(VueRouter)
     component: Login
   },
   {
+    path:'*',
+    redirect: '/404'
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
