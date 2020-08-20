@@ -1,6 +1,7 @@
 <template>
     <div>
-        用户登录
+        用户管理
+        <router-view/>
     </div>
 </template>
 <script>

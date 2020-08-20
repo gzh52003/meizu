@@ -1,6 +1,6 @@
 <template>
     <div>
-        用户登录
+        用户注册
     </div>
 </template>
 <script>

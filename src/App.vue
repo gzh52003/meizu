@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container style="height:100%">
     <el-header class="header">
       <el-row>
         <el-col :span="12" class="logo">
@@ -15,6 +15,7 @@
     <el-container>
       <el-aside width="200px">
         <el-menu
+          style="height:100%"
           :default-active="activeIndex"
           mode="vertical"
           background-color="#545c64"
@@ -38,6 +39,11 @@
           </template>
         </el-menu>
       </el-aside>
+      <el-main>
+        <div style="padding:15px 0;">
+          <router-view />
+        </div>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -93,8 +99,10 @@ export default {
 </script>
 
 <style lang="scss">
+html{height:100%}
 body {
   margin: 0;
+  height:100%
 }
 .header {
   line-height: 60px;
