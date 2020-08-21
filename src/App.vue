@@ -7,7 +7,7 @@
         </el-col>
         <el-col :span="12" style="text-align:right">
           <el-button type="text">注册</el-button>
-          <el-button type="text">登录</el-button>
+          <el-button type="text" @click="login">登录</el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: "App",
   data() {
@@ -93,6 +95,9 @@ export default {
     changeMenu(path) {
       this.activeIndex = path;
     },
+    login(){
+      this.$router.push('/login')
+    }
   },
   components: {},
 };
