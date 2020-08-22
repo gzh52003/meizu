@@ -47,14 +47,14 @@ Vue.use(VueRouter)
     name: 'Order',
     component: Order
   },
-  {
-      path: '/login', 
-      component: Login
-  },
-  { 
-    path: '/reg', 
-    component: Reg
-  },
+  // {
+  //     path: '/login', 
+  //     component: Login
+  // },
+  // { 
+  //   path: '/reg', 
+  //   component: Reg
+  // },
   {
     path: '/404',
     component: NotFound
