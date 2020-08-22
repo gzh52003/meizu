@@ -21,7 +21,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#008cff"
-          @select="changeMenu"
+          @select="changeMenu"  
           :default-openeds="openMenu"
           router
         >
@@ -92,7 +92,7 @@ export default {
     },
     changeMenu(path) {
       this.activeIndex = path;
-    },
+    }, 
   },
   components: {},
 };
