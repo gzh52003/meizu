@@ -20,14 +20,12 @@
       <template v-slot:default="scope">
         <el-button
           size="small"
-          plain
-          type="primary"
+          type="success"
           icon="el-icon-edit"
           @click="goto(scope.row._id)">编辑</el-button>
         <el-button
           size="small"
           type="danger"
-          plain
           icon="el-icon-delete"
           @click="handleDelete(scope.row._id)">删除</el-button>
       </template>

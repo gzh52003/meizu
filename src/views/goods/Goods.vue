@@ -17,8 +17,8 @@
 					<el-input size="mini" placeholder="输入关键字搜索" />
 				</template>
 				<template v-slot:default="scope">
-					<el-button size="mini" @click="goto(scope.row._id)" type="success">编辑</el-button>
-					<el-button size="mini" @click="deleteGoods(scope.row._id)" type="danger">删除</el-button>
+					<el-button size="mini" @click="goto(scope.row._id)" type="success" icon="el-icon-edit">编辑</el-button>
+					<el-button size="mini" @click="deleteGoods(scope.row._id)" type="danger" icon="el-icon-delete">删除</el-button>
 				</template>
 			</el-table-column>
 
