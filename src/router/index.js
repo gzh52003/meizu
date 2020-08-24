@@ -14,10 +14,12 @@ import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
 const routes = [
+
 			{
 				path:'',
 				redirect:'/add'
 			},
+
 		{
 		path: '',
 		name: 'Home',
@@ -55,7 +57,8 @@ const routes = [
 				name: 'Order',
 				component: Order
 			},
-		]
+
+		],redirect:'/goods'
 	},
 
 	{
@@ -63,10 +66,11 @@ const routes = [
 		name:'Login',
 		component: Login
 	},
-	// { 
-	//   path: '/reg', 
-	//   component: Reg
-	// },
+
+	{   path: '/reg', 
+		name:'Reg',
+		component: Reg
+	},
 	{
 		path: '/404',
 		component: NotFound

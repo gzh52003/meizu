@@ -1,5 +1,7 @@
 <template>
-  <el-container>
+
+  <el-container class="sl-container">
+
     <el-main>
       <transition name="el-zoom-in-center">
         <div class="transition-box">
@@ -12,7 +14,9 @@
             class="demo-ruleForm"
           >
             <el-form-item label="账号" prop="username">
-              <el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号"></el-input>
+
+              <el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号" @keyup.enter="reg('ruleForm')"></el-input>
+
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
@@ -36,7 +40,8 @@
 
             <el-form-item>
               <el-button @click="reg('ruleForm')" type="success">注册</el-button>
-              <el-button @click="goLog('ruleForm')">登录</el-button>
+
+              <el-button @click="goLog">登录</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -51,13 +56,17 @@
 <script>
 export default {
   data() {
-    var validateUser = (rule, value, callback) => {
+    
+
+    var validateUser = async (rule, value, callback) => {
+       let checkUrl = `/reg/check?username=${this.ruleForm.username}`
+      const {data:checkData} = await this.$request.get(checkUrl)
       if (value === "") {
         callback(new Error("请输入账号"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
+      }else if(checkData.code===0){
+        callback(new Error("用户已存在"));
+        console.log(checkData.code);
+      }else{
         callback();
       }
     };
@@ -66,6 +75,9 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
+        if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
         callback();
       }
     };
@@ -79,7 +91,6 @@ export default {
         callback();
       }
     };
-
     return {
       ruleForm: {
         username: "",
@@ -87,64 +98,47 @@ export default {
         checkPass: "",
       },
       rules: {
-        username: [{ validator: validateUser, trigger: "blur" }],
-        password: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+
+        username: [{ validator: validateUser, trigger: "change" }],
+        password: [{ validator: validatePass, trigger: "change" }],
+        checkPass: [{ validator: validatePass2, trigger: "change" }],
+
       },
+
     };
+    
   },
+  
   methods: {
-    async reg(formName) {
-      let url = `/reg`;
-      const { ruleForm } = this;
-      console.log(ruleForm);
-      const { data } = await this.$request.post(url, {
-        ...ruleForm,
-      });
-      this.$refs[formName].validate((valid) => {
+
+
+    reg(formName) {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
+            let url = `/reg`;
+            const { ruleForm } = this;
+            const { data } = await this.$request.post(url, {
+              ...ruleForm,
+            });
           if (data.code === 1) {
             this.$message({
               message: "注册成功",
               type: "success",
               showClose: true,
             });
-            console.log(data);
-          } else {
-            this.$message({
-              showClose: true,
-              message: "用户已存在",
-              type: "error",
-            });
+            this.$router.push('/login')
           }
         } else {
           console.log("error submit!!");
           return false;
         }
       });
+
     },
 
-    //    $request.get('url').then(res => {
-      //       console.log(url);
-      //     //   _this.userToken = 'Bearer ' + res.data.data.body.token;
-      //     //   // 将用户token保存到vuex中
-      //     //   _this.changeLogin({ Authorization: _this.userToken });
-      //     //   _this.$router.push('/home');
-      //     //   alert('登陆成功');
-      //     }).catch(error => {
-      //       alert('账号或密码错误');
-      //       console.log(error);
-      //     });
 
-    goLog(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+    goLog() {
+      this.$router.push('/login')
     },
   },
 };
@@ -162,7 +156,8 @@ html {
 body{
   height: 100%;
 }
-.el-container{
+
+.sl-container{
   height: 100%;
   width: 100%;
   background: url("/images/logo.png") no-repeat rgb(84, 92, 100);

@@ -1,5 +1,6 @@
 <template>
 	<div>
+
 		<el-dropdown >
 			<span class="el-dropdown-link">
 				商品分类<i class="el-icon-arrow-down el-icon--right"></i>
@@ -32,8 +33,10 @@
 					<el-input size="mini" placeholder="输入关键字搜索" />
 				</template>
 				<template v-slot:default="scope">
+
 					<el-button size="mini" @click="goto(scope.row._id)" type="success">编辑</el-button>
 					<el-button size="mini" @click="deleteGoods(scope.row._id)" type="danger">删除</el-button>
+
 				</template>
 			</el-table-column>
 
@@ -48,12 +51,11 @@
 
 <script>
 	export default {
-		
-		
+
 		data() {
 			return {
-
 				goodsList: [],
+
 				currentId: "0",
 				classify: [{
 						name: "手机"
@@ -89,9 +91,11 @@
 					}
 				]
 
+
 			}
 		},
 		methods: {
+
 			
 			async addItem(name){
 				const url ="classify/:id" + "?" +"classify="+ name
@@ -102,8 +106,10 @@
 
 				const url = 'page=' + idx
 
+
 				let {data} = await this.$request.get("/goods" + "?" + url);
-				// data = JSON.parse(data)
+
+		
 				this.goodsList = data.data
 
 
@@ -145,14 +151,14 @@
 
 
 		},
-		
-	
+
 		async created() {
 
 
 			let {
 				data
 			} = await this.$request.get("/goods");
+
 			this.goodsList = data.data
 
 
@@ -168,4 +174,5 @@
     cursor: pointer;
     color: #409EFF;
   }
+
 </style>

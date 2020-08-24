@@ -12,7 +12,7 @@
         class="demo-ruleForm"
       >
         <el-form-item label="账号" prop="user">
-          <el-input type="text" v-model="ruleForm.user" autocomplete="off" placeholder="账号"></el-input>
+          <el-input type="text" v-model="ruleForm.user" autocomplete="off" placeholder="账号" ></el-input>
         </el-form-item>
 
         <el-form-item label="密码" prop="pass">
@@ -26,7 +26,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button @click="log('ruleForm')" type="success">登录</el-button>
+          <el-button @click="log('ruleForm')"  type="success">登录</el-button>
           <el-button @click="goReg('ruleForm')">注册</el-button>
         </el-form-item>
       </el-form>
@@ -62,8 +62,8 @@ export default {
         pass: "",
       },
       rules: {
-        user: [{ validator: validateUser, trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        user: [{ validator: validateUser, trigger: "change" }],
+        pass: [{ validator: validatePass, trigger: "change" }],
       },
     };
   },
@@ -84,9 +84,10 @@ export default {
               showClose: true,
               
             });
-			this.$router.push({
-				name:"Home"
-			})
+      
+          this.$router.push({
+            name:"Home"
+          })
           } else {
             this.$message({
           showClose: true,
@@ -100,15 +101,8 @@ export default {
         }
       });
     },
-    goReg(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      }); 
+    goReg() {
+      this.$router.push('/reg')
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1>商品数据修改</h1>
-		
+
 		<el-form :model="ruleForm" status-icon label-width="100px" class="demo-ruleForm">
 			<el-form-item prop="skuid" label="商品Id">
 				<el-input type="text"  v-model="ruleForm.skuid" autocomplete="off"></el-input>
