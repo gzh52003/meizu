@@ -85,20 +85,12 @@
         this.$router.push({
           name:'userEdit',
           params:{id},
-          // query:{
-          //   a:10,b:20
-          // }
+         
         })
       }
     },
-      async created() {
-    // console.log("List=", this);
-    // axios({
-    //     url:'http://47.112.180.216:2003/api/user',
-    //     method:'get',
-    
-    // })
-    // let url="size=5"+"&"+"page="
+    async created() {
+   
     
     const { data } = await this.$request.get("/user");
     

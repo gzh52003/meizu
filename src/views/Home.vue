@@ -54,7 +54,7 @@
 		name: "App",
 		data() {
 			return {
-				activeIndex: "/home",
+				activeIndex: "/add",
 				openMenu: [],
 				menu: [{
 						text: "首页",
@@ -82,7 +82,6 @@
 		},
 		methods: {
 			goto(path, idx) {
-				console.log(this.$router);
 				this.$router.push(path);
 				// this.$router.replace(path);
 				this.currentIndex = idx;

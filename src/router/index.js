@@ -9,7 +9,7 @@ import GoodsEdit from '../views/goods/GoodsEdit.vue'
 import Order from '../views/order/Order.vue'
 import NotFound from '../views/NotFound.vue'
 import Login from '../views/Login.vue'
-// import Reg from '../views/Reg.vue'
+import Reg from '../views/Reg.vue'
 
 Vue.use(VueRouter)
 

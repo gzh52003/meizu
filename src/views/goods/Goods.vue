@@ -1,14 +1,15 @@
 <template>
 	<div>
 
-		<el-dropdown >
+		<el-dropdown>
 			<span class="el-dropdown-link">
 				商品分类<i class="el-icon-arrow-down el-icon--right"></i>
 			</span>
-			<el-dropdown-menu  slot="dropdown">
-				<el-dropdown-item :key="item.name" v-for="item in classify" @click.native="addItem(item.name)"  >{{item.name}}</el-dropdown-item>
+			<el-dropdown-menu slot="dropdown">
+				<el-dropdown-item :key="item.Names" v-for="item in classify" @click.native="addItem(item.Names)">{{item.Names}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
+		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
 		<el-table :data="goodsList" stripe style="width: 100%">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
@@ -34,8 +35,8 @@
 				</template>
 				<template v-slot:default="scope">
 
-					<el-button size="mini" @click="goto(scope.row._id)" type="success">编辑</el-button>
-					<el-button size="mini" @click="deleteGoods(scope.row._id)" type="danger">删除</el-button>
+					<el-button size="mini" @click="goto(scope.row._id)" icon="el-icon-edit" type="success">编辑</el-button>
+					<el-button size="mini" @click="deleteGoods(scope.row._id)" icon="el-icon-delete" type="danger">删除</el-button>
 
 				</template>
 			</el-table-column>
@@ -55,39 +56,41 @@
 		data() {
 			return {
 				goodsList: [],
-
 				currentId: "0",
+				goodsName: {
+					paging: "false"
+				},
 				classify: [{
-						name: "手机"
+						Names: "手机"
 					}, {
-						name: "双肩包"
+						Names: "双肩包"
 					},
 					{
-						name: "伞"
+						Names: "伞"
 					},
 					{
-						name: "路由器"
+						Names: "路由器"
 					},
 					{
-						name: "数据线"
+						Names: "数据线"
 					},
 					{
-						name: "充电器"
+						Names: "充电器"
 					},
 					{
-						name: "排插"
+						Names: "排插"
 					},
 					{
-						name: "卫衣"
+						Names: "卫衣"
 					},
 					{
-						name: "T恤"
+						Names: "T恤"
 					},
 					{
-						name: "手机壳"
+						Names: "手机壳"
 					},
 					{
-						name: "保护膜"
+						Names: "保护膜"
 					}
 				]
 
@@ -96,20 +99,35 @@
 		},
 		methods: {
 
-			
-			async addItem(name){
-				const url ="classify/:id" + "?" +"classify="+ name
-				let {data} = await this.$request.get("/goods/"+url);
+
+			async addItem(name) {
+				const url = "classify/:id" + "?" + "classify=" + name
+				let {
+					data
+				} = await this.$request.get("/goods/" + url);
 				this.goodsList = data.data
+				this.goodsName.name = name
+				this.goodsName.paging = "true"
+
 			},
 			async currentPage(idx) {
 
-				const url = 'page=' + idx
+				// console.log('this.goodsName.name=',this.goodsName.name,"this.goodsName.pagin=",this.goodsName.paging);
+					let url=""
+			
+				if (this.goodsName.paging === "true") {
+					url = "/classify/:id" + "?" + "classify=" + this.goodsName.name +"&"+ 'page=' + idx
+
+				} else {
+					url =  '?page=' + idx
+				}
+			
+						console.log('url=',url);
+				let {
+					data
+				} = await this.$request.get("/goods" + url);
 
 
-				let {data} = await this.$request.get("/goods" + "?" + url);
-
-		
 				this.goodsList = data.data
 
 
@@ -147,6 +165,15 @@
 					}
 
 				})
+			},
+			addTo(){
+				this.$router.push({
+					name: 'goodsEdit',
+					params:{
+						id:"0"
+					}
+				})
+				
 			}
 
 
@@ -170,9 +197,22 @@
 </script>
 
 <style lang="scss">
-.el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-  }
-
+	.el-dropdown-link{
+		
+		}
+	
+	.addTo{
+		margin-left: 20px !important;
+	}
+	.el-dropdown-link {
+		display: inline-block;
+		width: 90px;
+		height: 40px;
+		line-height: 38px;
+		text-align: center;
+		border-radius: 4px;
+		cursor: pointer;
+		background-color: #409eff;
+		color: #fff;
+	}
 </style>
