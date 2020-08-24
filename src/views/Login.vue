@@ -1,4 +1,6 @@
 <template>
+<el-container class="sl-container">
+    <el-main>
   <transition name="el-zoom-in-center">
     <div class="transition-box">
       <el-form
@@ -30,6 +32,8 @@
       </el-form>
     </div>
   </transition>
+      </el-main>
+  </el-container>
 </template>
 
 
@@ -68,18 +72,7 @@ export default {
     async log(formName) {
         let _this = this
       let url = `/login?username=${_this.ruleForm.user}&password=${_this.ruleForm.pass}`;
-      //    $request.get('url').then(res => {
-      //       console.log(url);
-      //     //   _this.userToken = 'Bearer ' + res.data.data.body.token;
-      //     //   // 将用户token保存到vuex中
-      //     //   _this.changeLogin({ Authorization: _this.userToken });
-      //     //   _this.$router.push('/home');
-      //     //   alert('登陆成功');
-      //     }).catch(error => {
-      //       alert('账号或密码错误');
-      //       console.log(error);
-      //     });
-
+      
       const { data } = await this.$request.get(url);
 
       this.$refs[formName].validate((valid) => {
@@ -91,6 +84,9 @@ export default {
               showClose: true,
               
             });
+			this.$router.push({
+				name:"Home"
+			})
           } else {
             this.$message({
           showClose: true,
@@ -119,8 +115,19 @@ export default {
 </script>
 
 <style>
+*{
+  margin: 0;
+}
 html {
   height: 100%;
+  width: 100%;
+}
+body{
+  height: 100%;
+}
+.sl-container{
+  height: 100%;
+  width: 100%;
   background: url("/images/logo.png") no-repeat rgb(84, 92, 100);
   background-position: center;
   background-size: 100%;

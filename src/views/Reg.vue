@@ -1,39 +1,48 @@
 <template>
-  <transition name="el-zoom-in-center">
-    <div class="transition-box">
-      <el-form
-        :model="ruleForm"
-        status-icon
-        :rules="rules"
-        ref="ruleForm"
-        label-width="70px"
-        class="demo-ruleForm"
-      >
-        <el-form-item label="账号" prop="userword">
-          <el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号"></el-input>
-        </el-form-item>
+  <el-container>
+    <el-main>
+      <transition name="el-zoom-in-center">
+        <div class="transition-box">
+          <el-form
+            :model="ruleForm"
+            status-icon
+            :rules="rules"
+            ref="ruleForm"
+            label-width="70px"
+            class="demo-ruleForm"
+          >
+            <el-form-item label="账号" prop="username">
+              <el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号"></el-input>
+            </el-form-item>
 
-        <el-form-item label="密码" prop="password">
-          <el-input
-            type="password"
-            v-model="ruleForm.password"
-            autocomplete="off"
-            show-password
-            placeholder="密码"
-          ></el-input>
-        </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input
+                type="password"
+                v-model="ruleForm.password"
+                autocomplete="off"
+                show-password
+                placeholder="密码"
+              ></el-input>
+            </el-form-item>
 
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password></el-input>
-        </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+              <el-input
+                type="password"
+                v-model="ruleForm.checkPass"
+                autocomplete="off"
+                show-password
+              ></el-input>
+            </el-form-item>
 
-        <el-form-item>
-          <el-button @click="reg('ruleForm')" type="success">注册</el-button>
-          <el-button @click="goLog('ruleForm')">登录</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </transition>
+            <el-form-item>
+              <el-button @click="reg('ruleForm')" type="success">注册</el-button>
+              <el-button @click="goLog('ruleForm')">登录</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </transition>
+    </el-main>
+  </el-container>
 </template>
 
 
@@ -80,32 +89,18 @@ export default {
       rules: {
         username: [{ validator: validateUser, trigger: "blur" }],
         password: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
       },
     };
   },
   methods: {
     async reg(formName) {
-        
-      let url = `/user`;
-      //    $request.get('url').then(res => {
-      //       console.log(url);
-      //     //   _this.userToken = 'Bearer ' + res.data.data.body.token;
-      //     //   // 将用户token保存到vuex中
-      //     //   _this.changeLogin({ Authorization: _this.userToken });
-      //     //   _this.$router.push('/home');
-      //     //   alert('登陆成功');
-      //     }).catch(error => {
-      //       alert('账号或密码错误');
-      //       console.log(error);
-      //     });
-            const {ruleForm} = this
-                console.log(ruleForm);
-      const { data } = await this.$request.post(url,{
-          ...ruleForm
-         
+      let url = `/reg`;
+      const { ruleForm } = this;
+      console.log(ruleForm);
+      const { data } = await this.$request.post(url, {
+        ...ruleForm,
       });
-
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (data.code === 1) {
@@ -128,6 +123,19 @@ export default {
         }
       });
     },
+
+    //    $request.get('url').then(res => {
+      //       console.log(url);
+      //     //   _this.userToken = 'Bearer ' + res.data.data.body.token;
+      //     //   // 将用户token保存到vuex中
+      //     //   _this.changeLogin({ Authorization: _this.userToken });
+      //     //   _this.$router.push('/home');
+      //     //   alert('登陆成功');
+      //     }).catch(error => {
+      //       alert('账号或密码错误');
+      //       console.log(error);
+      //     });
+
     goLog(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -144,8 +152,19 @@ export default {
 
 
 <style>
-/* html {
+*{
+  margin: 0;
+}
+html {
   height: 100%;
+  width: 100%;
+}
+body{
+  height: 100%;
+}
+.el-container{
+  height: 100%;
+  width: 100%;
   background: url("/images/logo.png") no-repeat rgb(84, 92, 100);
   background-position: center;
   background-size: 100%;
@@ -161,5 +180,5 @@ export default {
   padding: 40px 20px;
   padding-right: 60px;
   box-sizing: border-box;
-} */
+}
 </style>

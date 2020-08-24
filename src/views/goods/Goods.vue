@@ -1,11 +1,26 @@
 <template>
 	<div>
+		<el-dropdown >
+			<span class="el-dropdown-link">
+				商品分类<i class="el-icon-arrow-down el-icon--right"></i>
+			</span>
+			<el-dropdown-menu  slot="dropdown">
+				<el-dropdown-item :key="item.name" v-for="item in classify" @click.native="addItem(item.name)"  >{{item.name}}</el-dropdown-item>
+			</el-dropdown-menu>
+		</el-dropdown>
 		<el-table :data="goodsList" stripe style="width: 100%">
-			<el-table-column type="index" label="#" >
+			<el-table-column type="selection" width="55">
+			</el-table-column>
+			<el-table-column type="index" label="#">
+			</el-table-column>
+			<el-table-column label="商品图片" width="100" heigth="100">
+				<template v-slot:default="scope">
+					<el-image style="width: 100px; height: 100px" :src="scope.row.img"></el-image>
+				</template>
 			</el-table-column>
 			<el-table-column prop="skuid" label="商品Id" width="100">
 			</el-table-column>
-			<el-table-column prop="name" show-overflow-tooltip label="商品名称" >
+			<el-table-column prop="name" show-overflow-tooltip label="商品名称">
 			</el-table-column>
 			<el-table-column prop="skuprice" label="价格" width="100">
 			</el-table-column>
@@ -33,22 +48,61 @@
 
 <script>
 	export default {
+		
+		
 		data() {
 			return {
 
 				goodsList: [],
-				currentId: "0"
+				currentId: "0",
+				classify: [{
+						name: "手机"
+					}, {
+						name: "双肩包"
+					},
+					{
+						name: "伞"
+					},
+					{
+						name: "路由器"
+					},
+					{
+						name: "数据线"
+					},
+					{
+						name: "充电器"
+					},
+					{
+						name: "排插"
+					},
+					{
+						name: "卫衣"
+					},
+					{
+						name: "T恤"
+					},
+					{
+						name: "手机壳"
+					},
+					{
+						name: "保护膜"
+					}
+				]
 
 			}
 		},
 		methods: {
+			
+			async addItem(name){
+				const url ="classify/:id" + "?" +"classify="+ name
+				let {data} = await this.$request.get("/goods/"+url);
+				this.goodsList = data.data
+			},
 			async currentPage(idx) {
 
 				const url = 'page=' + idx
 
-				let {
-					data
-				} = await this.$request.get("/goods" + "?" + url);
+				let {data} = await this.$request.get("/goods" + "?" + url);
 				// data = JSON.parse(data)
 				this.goodsList = data.data
 
@@ -91,15 +145,15 @@
 
 
 		},
+		
+	
 		async created() {
 
 
 			let {
 				data
 			} = await this.$request.get("/goods");
-			// data = JSON.parse(data)
 			this.goodsList = data.data
-
 
 
 		}
@@ -110,5 +164,8 @@
 </script>
 
 <style lang="scss">
-
+.el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
 </style>
