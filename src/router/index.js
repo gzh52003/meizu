@@ -15,11 +15,11 @@ Vue.use(VueRouter)
 
 const routes = [
 
-			{
-				path:'',
-				redirect:'/add'
-			},
-
+		{
+			path:'',
+			//默认地址
+			redirect:'/add'
+		},
 		{
 		path: '',
 		name: 'Home',
@@ -58,27 +58,32 @@ const routes = [
 				component: Order
 			},
 
-		],redirect:'/goods'
-	},
+			//默认子路由
+		],redirect:'/add'
+		},
+		{
+			path: '/home',
+			name: 'Home',
+			component: Home
+		},
+		{
+			path: '/login',
+			name:'Login',
+			component: Login
+		},
 
-	{
-		path: '/login',
-		name:'Login',
-		component: Login
-	},
-
-	{   path: '/reg', 
-		name:'Reg',
-		component: Reg
-	},
-	{
-		path: '/404',
-		component: NotFound
-	},
-	{
-		path: '*',
-		redirect: '/404'
-	},
+		{   path: '/reg', 
+			name:'Reg',
+			component: Reg
+		},
+		{
+			path: '/404',
+			component: NotFound
+		},
+		{
+			path: '*',
+			redirect: '/404'
+		},
 
 ]
 

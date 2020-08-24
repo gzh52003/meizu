@@ -46,7 +46,7 @@
 				}
 			}
 		},
-		methods: {
+	methods: {
 			async submitForm() {
 				
 				const {goodsid,ruleForm}=this
@@ -59,8 +59,12 @@
 					if(data.code===1){
 						this.$message({
 							type:"success",
-							message:"添加成功"
+							message:"添加成功",
+							
 						})
+						  this.$router.push({
+						  name: "Goods",
+						        });
 					}else{
 						
 						return false
@@ -76,6 +80,9 @@
 							type:"success",
 							message:"修改成功"
 						})
+						  this.$router.push({
+						          name: "Goods",
+						        });
 					}else{
 						
 						return false
@@ -89,7 +96,9 @@
 
 		},
 
-		async created() {
+
+
+    async created() {
 
 			const {
 				id
@@ -120,9 +129,7 @@
 			
 			
 		}
-
-
-	}
+};
 </script>
 
 <style lang="scss">

@@ -11,6 +11,7 @@
         label-width="70px"
         class="demo-ruleForm"
       >
+      
         <el-form-item label="账号" prop="user">
           <el-input type="text" v-model="ruleForm.user" autocomplete="off" placeholder="账号" ></el-input>
         </el-form-item>
@@ -23,6 +24,14 @@
             show-password
             placeholder="密码"
           ></el-input>
+        </el-form-item>
+
+         <el-form-item label="验证码" prop="vcode">
+          <el-input type="text" v-model="ruleForm.vcode" autocomplete="off" placeholder="验证码" >
+            <template slot="append" >
+              <div v-html="vcode" @click="Rvcode" style="height:38px"></div>
+            </template>
+          </el-input>
         </el-form-item>
 
         <el-form-item>
@@ -56,44 +65,69 @@ export default {
       }
     };
 
+    var validateVcode = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入验证码"));
+      } else {
+        callback();
+      }
+    };
+
     return {
       ruleForm: {
         user: "",
         pass: "",
+        vcode: ""
       },
       rules: {
         user: [{ validator: validateUser, trigger: "change" }],
         pass: [{ validator: validatePass, trigger: "change" }],
+        vcode: [{ validator: validateVcode, trigger: "change" }]
       },
+      vcode:{data:""}
     };
   },
   methods: {
       
     async log(formName) {
         let _this = this
-      let url = `/login?username=${_this.ruleForm.user}&password=${_this.ruleForm.pass}`;
-      
+      let url = `/login?username=${_this.ruleForm.user}&password=${_this.ruleForm.pass}&vcode=${_this.ruleForm.vcode}`;
       const { data } = await this.$request.get(url);
+
+      let t = new Date()
+        t.setDate(t.getDate()+1)
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          //登陆成功
           if (data.code === 1) {
             this.$message({
               message: "登录成功",
               type: "success",
               showClose: true,
-              
             });
-      
-          this.$router.push({
-            name:"Home"
-          })
-          } else {
+            this.$router.push({
+              name:"Home"
+            })
+            //存储cookie
+            console.log(data);
+            document.cookie = `username=${_this.ruleForm.user};expires=${t}`
+            //存储localstorage
+            localStorage.setItem("data",JSON.stringify(data.data[0]))
+          }else if(data.code === 0){
+            //账号密码错误
             this.$message({
           showClose: true,
           message: '账号或密码错误',
           type: 'error'
-        });
+          });
+          }else{
+            //验证码错误
+            this.$message({
+          showClose: true,
+          message: '验证码错误',
+          type: 'error'
+          });
           }
         } else {
           console.log("error submit!!");
@@ -104,7 +138,18 @@ export default {
     goReg() {
       this.$router.push('/reg')
     },
+    async Rvcode(){
+      let url = `/vcode`;
+      const { data } = await this.$request.get(url);
+      this.vcode = (data.data)
+    }
   },
+
+  async created () {
+      let url = `/vcode`;
+      const { data } = await this.$request.get(url);
+      this.vcode = (data.data)
+  }
 };
 </script>
 
@@ -134,10 +179,16 @@ body{
   border-radius: 4px;
   background-color: rgba(221, 221, 221, 0.8);
   text-align: center;
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 80px;
-  padding-bottom: 18px;
+  padding: 40px 80px 18px 20px;
   box-sizing: border-box;
+}
+svg{
+  height: 40px;
+  width: 100px;
+  transform: translate(0 ,-3px);
+  cursor: pointer 
+}
+.el-input-group__append{
+  padding: 0 !important;
 }
 </style>

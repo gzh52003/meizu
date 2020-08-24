@@ -9,8 +9,10 @@
 				<el-dropdown-item :key="item.Names" v-for="item in classify" @click.native="addItem(item.Names)">{{item.Names}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
-		<el-table :data="goodsList" stripe style="width: 100%">
+    <el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
+		<el-table :data="goodsList" stripe style="width: 100%" height="578px">
+
+
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" label="#">
@@ -197,8 +199,10 @@
 </script>
 
 <style lang="scss">
+
 	.el-dropdown-link{
-		
+		 cursor: pointer;
+    color: #409EFF;
 		}
 	
 	.addTo{
@@ -215,4 +219,5 @@
 		background-color: #409eff;
 		color: #fff;
 	}
+
 </style>
