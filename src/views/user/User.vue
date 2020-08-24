@@ -20,7 +20,9 @@
       <template v-slot:default="scope">
         <el-button
           size="small"
+
           type="success"
+
           icon="el-icon-edit"
           @click="goto(scope.row._id)">编辑</el-button>
         <el-button

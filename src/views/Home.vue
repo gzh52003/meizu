@@ -14,6 +14,7 @@
 						</svg>魅族后台管理系统
 					</el-col>
 					<el-col :span="12" style="text-align:right">
+
 						<el-button type="text" @click="login">登录</el-button>
 						<el-button type="text" @click="reg">注册</el-button>
 					</el-col>
@@ -38,6 +39,7 @@
 						</template>
 					</el-menu>
 				</el-aside>
+
 				<el-main class="sl-main">
 					<div style="padding:15px 0;" class="sl-box">
 						<router-view />
@@ -94,6 +96,7 @@
 			},
 			login() {
 				this.$router.push('/login')
+
 			},
 			reg(){
 				this.$router.push('/reg')
@@ -134,6 +137,7 @@
 			}
 		}
 	}
+
 	.sl-box{
 		opacity: 0.9;
 		height: 100%;

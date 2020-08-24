@@ -9,15 +9,17 @@ import GoodsEdit from '../views/goods/GoodsEdit.vue'
 import Order from '../views/order/Order.vue'
 import NotFound from '../views/NotFound.vue'
 import Login from '../views/Login.vue'
-import Reg from '../views/Reg.vue'
+// import Reg from '../views/Reg.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-		{
-			path:'',
-			redirect:'/login'
-		},
+
+			{
+				path:'',
+				redirect:'/add'
+			},
+
 		{
 		path: '',
 		name: 'Home',
@@ -55,6 +57,7 @@ const routes = [
 				name: 'Order',
 				component: Order
 			},
+
 		],redirect:'/goods'
 	},
 
@@ -63,6 +66,7 @@ const routes = [
 		name:'Login',
 		component: Login
 	},
+
 	{   path: '/reg', 
 		name:'Reg',
 		component: Reg

@@ -1,5 +1,7 @@
 <template>
+
   <el-container class="sl-container">
+
     <el-main>
       <transition name="el-zoom-in-center">
         <div class="transition-box">
@@ -12,7 +14,9 @@
             class="demo-ruleForm"
           >
             <el-form-item label="账号" prop="username">
+
               <el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号" @keyup.enter="reg('ruleForm')"></el-input>
+
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
@@ -36,6 +40,7 @@
 
             <el-form-item>
               <el-button @click="reg('ruleForm')" type="success">注册</el-button>
+
               <el-button @click="goLog">登录</el-button>
             </el-form-item>
           </el-form>
@@ -93,9 +98,11 @@ export default {
         checkPass: "",
       },
       rules: {
+
         username: [{ validator: validateUser, trigger: "change" }],
         password: [{ validator: validatePass, trigger: "change" }],
         checkPass: [{ validator: validatePass2, trigger: "change" }],
+
       },
 
     };
@@ -103,6 +110,7 @@ export default {
   },
   
   methods: {
+
 
     reg(formName) {
       this.$refs[formName].validate(async (valid) => {
@@ -128,17 +136,6 @@ export default {
 
     },
 
-    //    $request.get('url').then(res => {
-      //       console.log(url);
-      //     //   _this.userToken = 'Bearer ' + res.data.data.body.token;
-      //     //   // 将用户token保存到vuex中
-      //     //   _this.changeLogin({ Authorization: _this.userToken });
-      //     //   _this.$router.push('/home');
-      //     //   alert('登陆成功');
-      //     }).catch(error => {
-      //       alert('账号或密码错误');
-      //       console.log(error);
-      //     });
 
     goLog() {
       this.$router.push('/login')
@@ -159,6 +156,7 @@ html {
 body{
   height: 100%;
 }
+
 .sl-container{
   height: 100%;
   width: 100%;
