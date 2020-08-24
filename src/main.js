@@ -7,6 +7,7 @@ import request from './utils/request';
 import 'element-ui/lib/theme-chalk/index.css';
 
 
+
 Vue.use(ElementUI);
 Vue.prototype.$request = request
 Vue.prototype.$Bus=Bus
