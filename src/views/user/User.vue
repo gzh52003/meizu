@@ -6,6 +6,11 @@
     style="width: 100%">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="#"></el-table-column>
+			<el-table-column label="头像" width="100" heigth="100">
+				<template v-slot:default="scope">
+					<el-image style="width: 100px; height: 100px" :src="scope.row.img"></el-image>
+				</template>
+			</el-table-column>
       <el-table-column label="用户名" prop="username"></el-table-column>
       <el-table-column prop="age" label="年龄"></el-table-column>
       <el-table-column prop="gender" label="性别" show-overflow-tooltip></el-table-column>
@@ -40,7 +45,8 @@
       
       background
       layout="prev, pager, next,jumper"
-      :total="1000">
+      :total="1000"
+      >
     </el-pagination>
   </div>
 </template>
@@ -50,6 +56,7 @@
       return {
         userlist: [],
         search: "",
+
       }
     },
     methods: {
@@ -98,7 +105,6 @@
     //     method:'get',
     
     // })
-    // let url="size=5"+"&"+"page="
     
     const { data } = await this.$request.get("/user");
     

@@ -1,6 +1,5 @@
 <template>
 	<div>
-
 		<el-dropdown >
 			<span class="el-dropdown-link">
 				商品分类<i class="el-icon-arrow-down el-icon--right"></i>
@@ -9,7 +8,9 @@
 				<el-dropdown-item :key="item.name" v-for="item in classify" @click.native="addItem(item.name)"  >{{item.name}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-		<el-table :data="goodsList" stripe style="width: 100%">
+		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+			stripe
+			style="width: 100%">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" label="#">
@@ -30,7 +31,7 @@
 
 			<el-table-column align="right">
 				<template slot="header">
-					<el-input size="mini" placeholder="输入关键字搜索" />
+					<el-input size="mini" v-model="search" placeholder="输入关键字搜索" />
 				</template>
 				<template v-slot:default="scope">
 
@@ -55,7 +56,7 @@
 		data() {
 			return {
 				goodsList: [],
-
+				search: "",
 				currentId: "0",
 				classify: [{
 						name: "手机"
@@ -95,8 +96,6 @@
 			}
 		},
 		methods: {
-
-			
 			async addItem(name){
 				const url ="classify/:id" + "?" +"classify="+ name
 				let {data} = await this.$request.get("/goods/"+url);
