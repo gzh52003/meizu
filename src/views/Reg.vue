@@ -35,6 +35,7 @@
                 v-model="ruleForm.checkPass"
                 autocomplete="off"
                 show-password
+                placeholder="确认密码"
               ></el-input>
             </el-form-item>
 
@@ -172,7 +173,7 @@ body{
   border-radius: 4px;
   background-color: rgba(221, 221, 221, 0.8);
   text-align: center;
-  padding: 40px 20px;
+  padding: 40px 80px 18px 20px;
   padding-right: 60px;
   box-sizing: border-box;
 }

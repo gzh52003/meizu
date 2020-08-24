@@ -3,7 +3,7 @@
     <el-table
     :data="userlist.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase()))"
     tooltip-effect="dark"
-    style="width: 100%">
+    style="width: 100%" height="599px">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="#"></el-table-column>
 			<el-table-column label="头像" width="100" heigth="100">
@@ -74,6 +74,7 @@
               type: "success",
               message: "删除成功!",
             });
+            
           }
         });
       },
@@ -92,19 +93,13 @@
         this.$router.push({
           name:'userEdit',
           params:{id},
-          // query:{
-          //   a:10,b:20
-          // }
+         
         })
       }
     },
-      async created() {
-    // console.log("List=", this);
-    // axios({
-    //     url:'http://47.112.180.216:2003/api/user',
-    //     method:'get',
-    
-    // })
+
+    async created() {
+   
     
     const { data } = await this.$request.get("/user");
     
