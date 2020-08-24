@@ -1,7 +1,8 @@
 <template>
 	<div>
 
-		<el-dropdown>
+		<el-dropdown >
+
 			<span class="el-dropdown-link">
 				商品分类<i class="el-icon-arrow-down el-icon--right"></i>
 			</span>
@@ -9,9 +10,10 @@
 				<el-dropdown-item :key="item.Names" v-for="item in classify" @click.native="addItem(item.Names)">{{item.Names}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-    <el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
-		<el-table :data="goodsList" stripe style="width: 100%" height="578px">
-
+  <el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
+		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+			stripe
+			style="width: 100%" height="578px">
 
 			<el-table-column type="selection" width="55">
 			</el-table-column>
@@ -33,7 +35,7 @@
 
 			<el-table-column align="right">
 				<template slot="header">
-					<el-input size="mini" placeholder="输入关键字搜索" />
+					<el-input size="mini" v-model="search" placeholder="输入关键字搜索" />
 				</template>
 				<template v-slot:default="scope">
 
@@ -58,6 +60,9 @@
 		data() {
 			return {
 				goodsList: [],
+
+				search: "",
+
 				currentId: "0",
 				goodsName: {
 					paging: "false"
@@ -101,12 +106,10 @@
 		},
 		methods: {
 
+			async addItem(name){
+				const url ="classify/:id" + "?" +"classify="+ name
+				let {data} = await this.$request.get("/goods/"+url);
 
-			async addItem(name) {
-				const url = "classify/:id" + "?" + "classify=" + name
-				let {
-					data
-				} = await this.$request.get("/goods/" + url);
 				this.goodsList = data.data
 				this.goodsName.name = name
 				this.goodsName.paging = "true"

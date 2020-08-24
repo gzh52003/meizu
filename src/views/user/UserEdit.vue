@@ -8,11 +8,11 @@
       ref="ruleForm"
       label-width="100px"
     >
-      <el-form-item label="用户名" prop="username">
-        <el-input type="text" v-bind:value="ruleForm.username" disabled></el-input>
+      <el-form-item label="用户名" prop="username" >
+        <el-input type="text" v-bind:value="ruleForm.username" disabled clearable></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off" clearable></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-select v-model="ruleForm.gender">
@@ -27,6 +27,10 @@
       <el-form-item>
         <el-button type="success" @click="submitForm">修改</el-button>
       </el-form-item>
+      <el-col>
+        <img :src="ruleForm.pic" alt width="100" />
+        <input type="file" @change="upload" class="upload-input">
+      </el-col>
     </el-form>
   </div>
 </template>
@@ -49,6 +53,7 @@ export default {
         password: "",
         gender: "",
         age: "",
+        pic:""
       },
       rules: {
         age: [
@@ -80,6 +85,7 @@ export default {
           const {data} = await this.$request.put("/user/"+userid,{
               ...ruleForm
           });
+          console.log(data)
           if(data.code === 1){
               this.$message({
                 type: "success",
@@ -96,6 +102,22 @@ export default {
         }
       });
     },
+    async upload(e){
+
+      const data = new FormData();
+
+      data.set('_id',this.ruleForm._id);
+
+      data.set('avatar',e.target.files[0]);
+
+      const result = await this.$request.post("/upload/avatar",data,{
+        // contentType:false,
+        'Content-Type':'multipart/form-data',
+      })
+
+      this.ruleForm.pic = 'http://47.112.180.216:2003' + result.data.data.avatarUrl;
+    }
+
   },
   async created() {
     // console.log("Router=", this.$router);
@@ -112,3 +134,13 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+  h1{
+    margin-bottom: 25px;
+  }
+  .upload-input{
+    margin-left: 100px;
+    margin-bottom: 20px;
+    z-index: 999;
+  }
+</style>
