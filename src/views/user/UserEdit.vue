@@ -86,6 +86,9 @@ export default {
                 message: "修改成功",
 
             });
+            this.$router.push({
+              name:"User"
+            })
           }
         } else {
           console.log("error submit!!");

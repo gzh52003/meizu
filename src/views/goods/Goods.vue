@@ -9,7 +9,7 @@
 				<el-dropdown-item :key="item.name" v-for="item in classify" @click.native="addItem(item.name)"  >{{item.name}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-		<el-table :data="goodsList" stripe style="width: 100%">
+		<el-table :data="goodsList" stripe style="width: 100%" height="578px">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" label="#">
@@ -174,5 +174,4 @@
     cursor: pointer;
     color: #409EFF;
   }
-
 </style>

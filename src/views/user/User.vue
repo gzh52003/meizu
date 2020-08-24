@@ -3,7 +3,7 @@
     <el-table
     :data="userlist.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase()))"
     tooltip-effect="dark"
-    style="width: 100%">
+    style="width: 100%" height="599px">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="#"></el-table-column>
       <el-table-column label="用户名" prop="username"></el-table-column>
@@ -67,6 +67,7 @@
               type: "success",
               message: "删除成功!",
             });
+            
           }
         });
       },

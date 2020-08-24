@@ -5,7 +5,7 @@
 				<el-row>
 					<el-col :span="12" class="logo">
 						<svg fill="#008cff" version="1.1" id="Logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80px"
-						height="73.556px" viewBox="17.318 5.824 402.048 73.556">
+						viewBox="17.318 5.824 402.048 73.556">
 							<path d="M321.513,5.824H256.91v12.878h51.478l-49.294,44.581c-8.227,7.023-2.872,16.096,3.958,16.096h65.337V66.472 h-52.117l48.964-44.554C333.52,14.473,328.535,5.824,321.513,5.824"></path>
 							<rect x="226.517" y="5.824" width="14.426" height="73.556"></rect>
 							<path d="M104.296,5.824h-71.36c-8.576,0-15.618,7.012-15.618,15.588v57.967H31.14V23.743 c0-2.711,2.208-5.041,4.92-5.041h25.31v60.677h14.428V18.702h25.312c2.712,0,4.919,2.329,4.919,5.041v55.636h13.86V21.416 C119.888,12.841,112.872,5.824,104.296,5.824"></path>
@@ -15,8 +15,8 @@
 					</el-col>
 					<el-col :span="12" style="text-align:right">
 
-						<el-button type="text" @click="login">登录</el-button>
-						<el-button type="text" @click="reg">注册</el-button>
+						{{cookie.username}}
+						<el-button type="text" @click="logOut" margin="20px">登出</el-button>
 					</el-col>
 				</el-row>
 			</el-header>
@@ -41,7 +41,7 @@
 				</el-aside>
 
 				<el-main class="sl-main">
-					<div style="padding:15px 0;" class="sl-box">
+					<div class="sl-box">
 						<router-view />
 					</div>
 				</el-main>
@@ -54,6 +54,7 @@
 		name: "App",
 		data() {
 			return {
+				cookie:{username:""},
 				activeIndex: "/home",
 				openMenu: [],
 				menu: [{
@@ -92,19 +93,31 @@
 			},
 			changeMenu(path) {
 				this.activeIndex = path;
-
 			},
-			login() {
-				this.$router.push('/login')
-
+			logOut() {
+				document.cookie = `username =  1 ; expires = ${new Date(0).toUTCString()}`
+				this.$router.push({
+					name:"Login"
+			})
+			this.$message({
+              message: "已登出",
+              type: "success",
+              showClose: true,
+            });
 			},
-			reg(){
-				this.$router.push('/reg')
-			}
+
 		},
 		components: {},
 
+		created () {
+			this.cookie.username = (document.cookie).split("=")[1]
+			if(!this.cookie.username){
+				this.$router.push({name:"Login"})
+			}
+		}
 	}
+
+
 </script>
 
 
@@ -122,7 +135,6 @@
 	
 	.header {
 		line-height: 60px;
-		margin-bottom: 2px;
 		color: #fff;
 		background-color: rgba(84, 92, 100, 0.9);
 		user-select: none;
