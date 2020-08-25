@@ -28,7 +28,7 @@
 
          <el-form-item label="验证码" prop="vcode">
           <el-input type="text" v-model="ruleForm.vcode" autocomplete="off" placeholder="验证码" >
-            <template slot="append" >
+            <template slot="append"  >
               <div v-html="vcode" @click="Rvcode" style="height:38px"></div>
             </template>
           </el-input>
@@ -84,8 +84,9 @@ export default {
         pass: [{ validator: validatePass, trigger: "change" }],
         vcode: [{ validator: validateVcode, trigger: "change" }]
       },
-      vcode:{data:""}
+      vcode:{data:""},
     };
+    
   },
   methods: {
       
@@ -101,19 +102,20 @@ export default {
         if (valid) {
           //登陆成功
           if (data.code === 1) {
+            //存储cookie
+            document.cookie = `username=${_this.ruleForm.user};expires=${t}`
+            //存储localstorage
+            localStorage.setItem("data",JSON.stringify(data.data[0]))
+
             this.$message({
-              message: "登录成功",
+              message: (document.cookie).split("=")[1] + " 登录成功",
               type: "success",
               showClose: true,
             });
             this.$router.push({
               name:"Home"
             })
-            //存储cookie
-            console.log(data);
-            document.cookie = `username=${_this.ruleForm.user};expires=${t}`
-            //存储localstorage
-            localStorage.setItem("data",JSON.stringify(data.data[0]))
+            
           }else if(data.code === 0){
             //账号密码错误
             this.$message({

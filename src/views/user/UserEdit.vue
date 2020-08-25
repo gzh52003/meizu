@@ -24,7 +24,9 @@
         <el-input v-model.number="ruleForm.age"></el-input>
       </el-form-item>
       <el-form-item>
+
         <el-button type="success" @click="submitForm">{{userName.type}}</el-button>
+        <el-button type="danger" @click="back">取消</el-button>
       </el-form-item>
       <el-col>
         <img :src="ruleForm.pic" alt width="150" style="margin-left:150px" />
@@ -106,8 +108,11 @@ export default {
       })
 
       this.ruleForm.pic = 'http://47.112.180.216:2003' + result.data.data.avatarUrl;
-          console.log(data.avatarUrl);
-    }
+
+    },
+    back() {
+      this.$router.back();
+    },
 
   },
   async created() {

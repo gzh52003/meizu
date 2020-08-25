@@ -5,8 +5,11 @@ const request = axios.create({
 	baseURL: baseURL + '/api',
 	headers: {
 		'Content-Type': 'application/json'
+
 	},
 	// withCredentials: true
+
 });
+
 
 export default request;
