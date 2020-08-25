@@ -1,7 +1,7 @@
 <template>
 	<div>
 
-		<el-dropdown >
+		<el-dropdown>
 
 			<span class="el-dropdown-link">
 				商品分类<i class="el-icon-arrow-down el-icon--right"></i>
@@ -10,10 +10,8 @@
 				<el-dropdown-item :key="item.Names" v-for="item in classify" @click.native="addItem(item.Names)">{{item.Names}}</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-  <el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
-		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-			stripe
-			style="width: 100%" height="578px">
+		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
+		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" stripe style="width: 100%" height="578px">
 
 			<el-table-column type="selection" width="55">
 			</el-table-column>
@@ -106,9 +104,11 @@
 		},
 		methods: {
 
-			async addItem(name){
-				const url ="classify/:id" + "?" +"classify="+ name
-				let {data} = await this.$request.get("/goods/"+url);
+			async addItem(name) {
+				const url = "classify/:id" + "?" + "classify=" + name
+				let {
+					data
+				} = await this.$request.get("/goods/" + url);
 
 				this.goodsList = data.data
 				this.goodsName.name = name
@@ -118,16 +118,16 @@
 			async currentPage(idx) {
 
 				// console.log('this.goodsName.name=',this.goodsName.name,"this.goodsName.pagin=",this.goodsName.paging);
-					let url=""
-			
+				let url = ""
+
 				if (this.goodsName.paging === "true") {
-					url = "/classify/:id" + "?" + "classify=" + this.goodsName.name +"&"+ 'page=' + idx
+					url = "/classify/:id" + "?" + "classify=" + this.goodsName.name + "&" + 'page=' + idx
 
 				} else {
-					url =  '?page=' + idx
+					url = '?page=' + idx
 				}
-			
-						console.log('url=',url);
+
+				console.log('url=', url);
 				let {
 					data
 				} = await this.$request.get("/goods" + url);
@@ -171,14 +171,14 @@
 
 				})
 			},
-			addTo(){
+			addTo() {
 				this.$router.push({
 					name: 'goodsEdit',
-					params:{
-						id:"0"
+					params: {
+						id: "0"
 					}
 				})
-				
+
 			}
 
 
@@ -202,15 +202,15 @@
 </script>
 
 <style lang="scss">
+	.el-dropdown-link {
+		cursor: pointer;
+		color: #409EFF;
+	}
 
-	.el-dropdown-link{
-		 cursor: pointer;
-    color: #409EFF;
-		}
-	
-	.addTo{
+	.addTo {
 		margin-left: 20px !important;
 	}
+
 	.el-dropdown-link {
 		display: inline-block;
 		width: 90px;
@@ -222,5 +222,4 @@
 		background-color: #409eff;
 		color: #fff;
 	}
-
 </style>
