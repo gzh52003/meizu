@@ -24,6 +24,7 @@
 			</el-form-item>
 			<el-form-item>
 				<el-button type="success" @click="submitForm">{{goodsName.type}}</el-button>
+				<el-button type="danger" @click="back">{{goodsName.back}}</el-button>
 
 			</el-form-item>
 		</el-form>
@@ -97,9 +98,10 @@
 					}
 
 				}
-
-
 			},
+			back() {
+      this.$router.back();
+    },
 
 
 		},
@@ -120,6 +122,7 @@
 			} else {
 				this.goodsName.Name = "商品信息修改"
 				this.goodsName.type = "修改"
+				this.goodsName.back = "取消"
 
 				const {
 					data
