@@ -1,6 +1,7 @@
 <template>
-	<div>
-		<h1>{{goodsName.Name}}</h1>
+  <div>
+    <h1>{{goodsName.Name}}</h1>
+
 
 		<el-form :model="ruleForm" status-icon label-width="100px" class="demo-ruleForm">
 			<el-form-item prop="skuid" label="商品Id">
@@ -31,8 +32,49 @@
 	</div>
 </template>
 <script>
-	export default {
-		data() {
+export default {
+  data() {
+    return {
+      goodsName: {},
+      goodsid: "",
+      ruleForm: {
+        skuid: "",
+        name: "",
+        skuprice: "",
+        title: "",
+        img: "",
+        classify: "",
+      },
+    };
+  },
+  methods: {
+    async submitForm() {
+      const { goodsid, ruleForm } = this;
+
+      if (
+        ruleForm.name === "" &&
+        ruleForm.skuid === "" &&
+        ruleForm.skuprice === ""
+      )
+        return;
+
+      if (goodsid == 0) {
+        const { data } = await this.$request.post("/goods", { ...ruleForm });
+        if (data.code === 1) {
+          this.$message({
+            type: "success",
+            message: "添加成功",
+          });
+          this.$router.push({
+            name: "Goods",
+          });
+        } else {
+          return false;
+        }
+      } else {
+        const { data } = await this.$request.put("/goods/" + goodsid, {
+          ...ruleForm,
+        });
 
 			return {
 				goodsName: {},
@@ -102,6 +144,12 @@
 			back() {
       this.$router.back();
     },
+
+
+    if (id == 0) {
+      this.goodsName.Name = "添加商品";
+      this.goodsName.type = "添加";
+      this.goodsid = id;
 
 
 		},
