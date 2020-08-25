@@ -26,6 +26,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="success" @click="submitForm">修改</el-button>
+        <el-button type="danger" @click="back">取消</el-button>
       </el-form-item>
       <el-col>
         <img :src="ruleForm.pic" alt width="100" />
@@ -116,7 +117,10 @@ export default {
       })
 
       this.ruleForm.pic = 'http://47.112.180.216:2003' + result.data.data.avatarUrl;
-    }
+    },
+    back() {
+      this.$router.back();
+    },
 
   },
   async created() {
