@@ -11,7 +11,7 @@
 			</el-dropdown-menu>
 		</el-dropdown>
 		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
-		<el-table stripe style="width: 100%" height="578px">
+		<el-table stripe style="width: 100%" height="528px">
 
 			<el-table-column type="selection" width="55">
 			</el-table-column>
@@ -45,7 +45,7 @@
 
 		</el-table>
 		<div class="pagination">
-			<el-pagination @current-change="currentPage" background layout="prev, pager, next" :total="1000">
+			<el-pagination style="float:left;margin-left:150px;margin-top:30px" @current-change="currentPage" background layout="prev, pager, next,jumper" :total="1000">
 			</el-pagination>
 		</div>
 
