@@ -101,10 +101,15 @@
 				this.activeIndex = path;
 			},
 			logOut() {
+				//删除cookie
 				document.cookie = `username =  1 ; expires = ${new Date(0).toUTCString()}`;
 				this.$router.push({
 					name: "Login",
 				});
+
+				//删除localStorage
+				localStorage.removeItem('data')
+
 				this.$message({
 					message: "已登出",
 					type: "success",

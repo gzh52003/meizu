@@ -111,15 +111,16 @@
 
 							this.$message({
 								message: (document.cookie).split("=")[1] + " 登录成功",
-
 								type: "success",
 								showClose: true,
 							});
 							this.$router.push({
 								name: "Home"
 							})
+							console.log(data)
 						} else if (data.code === 0) {
 							//账号密码错误
+							console.log(data)
 							this.$message({
 								showClose: true,
 								message: '账号或密码错误',

@@ -12,8 +12,10 @@
 			</el-dropdown-menu>
 		</el-dropdown>
 		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
+
 		<el-button type="primary" icon="el-icon-refresh-left" class="addTo" @click="refresh">重置</el-button>
 		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" stripe style="width: 100%" height="578px">
+
 
 
 			<el-table-column type="selection" width="55">
@@ -36,7 +38,7 @@
 
 			<el-table-column align="right">
 				<template slot="header">
-					<el-input size="mini" v-model="search" placeholder="输入关键字搜索" />
+					<el-input size="mini" v-model="search" placeholder="输入关键字搜索"/>
 				</template>
 				<template v-slot:default="scope">
 
@@ -48,7 +50,7 @@
 
 		</el-table>
 		<div class="pagination">
-			<el-pagination @current-change="currentPage" background layout="prev, pager, next" :total="1000">
+			<el-pagination style="float:left;margin-left:150px;margin-top:30px" @current-change="currentPage" background layout="prev, pager, next,jumper" :total="this.goodss.length">
 			</el-pagination>
 		</div>
 
@@ -62,6 +64,8 @@
 			return {
 				goodsList: [],
 				search: "",
+				goodss: [],
+
 				currentId: "0",
 				goodsName: {
 					paging: "false"
@@ -194,10 +198,11 @@
 			let {
 				data
 			} = await this.$request.get("/goods");
-
 			this.goodsList = data.data
 
-			console.log(this.goodsList.length);
+const {data:goodss} = await this.$request.get("/goods/paging")
+		this.goodss = goodss.data
+
 		}
 
 

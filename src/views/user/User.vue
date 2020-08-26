@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-table :data="userlist.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase()))" tooltip-effect="dark" style="width: 100%" height="599px">
+		<el-table :data="userlist.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase()))" tooltip-effect="dark" style="width: 100%" height="569px">
 			<el-table-column type="selection"></el-table-column>
 			<el-table-column type="index" label="#"></el-table-column>
 
@@ -24,9 +24,8 @@
 			</el-table-column>
 
 		</el-table>
-		<el-pagination style="float:left;margin-left:150px;margin-top:30px" @current-change="currentPage " background layout="prev, pager, next,jumper" :total="1000">
+		<el-pagination style="float:left;margin-left:150px;margin-top:30px" @current-change="currentPage "  background layout="prev, pager, next,jumper" :total="this.users.length">
 		</el-pagination>
-
 		<el-button type="primary" icon="el-icon-plus" class="added" @click="added">新增</el-button>
 	</div>
 </template>
@@ -36,6 +35,7 @@
 			return {
 				userlist: [],
 				search: "",
+				users: []
 
 			}
 		},
@@ -101,11 +101,11 @@
 			const {
 				data
 			} = await this.$request.get("/user");
-
-
 			this.userlist = data.data;
-			console.log(data);
 
+
+		const {data:users} = await this.$request.get("/user/paging")
+		this.users = users.data
 		}
 	}
 </script>
