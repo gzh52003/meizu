@@ -169,9 +169,6 @@
 		background-size: 100%;
 	}
 
-	// .el-table th{
-	// 	background: none !important;
-	// }
 	.el-table {
 		background: none !important;
 	}
