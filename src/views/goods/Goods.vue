@@ -12,7 +12,10 @@
 			</el-dropdown-menu>
 		</el-dropdown>
 		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
-		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" stripe style="width: 100%" height="528px">
+
+		<el-button type="primary" icon="el-icon-refresh-left" class="addTo" @click="refresh">重置</el-button>
+		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" stripe style="width: 100%" height="578px">
+
 
 
 			<el-table-column type="selection" width="55">
@@ -105,7 +108,12 @@
 			}
 		},
 		methods: {
-
+			async refresh(){
+				
+					let {data} = await this.$request.get("/goods");
+					
+					this.goodsList = data.data
+					},
 			async addItem(name) {
 				const url = "classify/:id" + "?" + "classify=" + name
 				let {
@@ -119,7 +127,6 @@
 			},
 			async currentPage(idx) {
 
-				// console.log('this.goodsName.name=',this.goodsName.name,"this.goodsName.pagin=",this.goodsName.paging);
 				let url = ""
 
 				if (this.goodsName.paging === "true") {
@@ -133,7 +140,6 @@
 				let {
 					data
 				} = await this.$request.get("/goods" + url);
-
 
 				this.goodsList = data.data
 
@@ -196,7 +202,6 @@
 
 const {data:goodss} = await this.$request.get("/goods/paging")
 		this.goodss = goodss.data
-		console.log(this.goodss.length);
 
 		}
 
