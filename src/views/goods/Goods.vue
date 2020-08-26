@@ -1,4 +1,5 @@
 <template>
+
 	<div>
 
 		<el-dropdown>
@@ -12,6 +13,7 @@
 		</el-dropdown>
 		<el-button type="primary" icon="el-icon-plus" class="addTo" @click="addTo">新增</el-button>
 		<el-table :data="goodsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" stripe style="width: 100%" height="578px">
+
 
 			<el-table-column type="selection" width="55">
 			</el-table-column>

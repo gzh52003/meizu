@@ -2,6 +2,7 @@
 	<div>
 		<h1>{{goodsName.Name}}</h1>
 
+
 		<el-form :model="ruleForm" status-icon label-width="100px" class="demo-ruleForm">
 			<el-form-item prop="skuid" label="商品Id">
 				<el-input type="text" v-model="ruleForm.skuid" autocomplete="off"></el-input>
@@ -24,6 +25,7 @@
 			</el-form-item>
 			<el-form-item>
 				<el-button type="success" @click="submitForm">{{goodsName.type}}</el-button>
+				<el-button type="danger" @click="back">{{goodsName.back}}</el-button>
 
 			</el-form-item>
 		</el-form>
@@ -32,7 +34,6 @@
 <script>
 	export default {
 		data() {
-
 			return {
 				goodsName: {},
 				goodsid: "",
@@ -98,45 +99,46 @@
 
 				}
 
-
+			},
+			back() {
+				this.$router.back();
 			},
 
 
-		},
-
-		async created() {
-
-			const {
-				id
-			} = this.$route.params
-
-
-			if (id == 0) {
-				this.goodsName.Name = "添加商品"
-				this.goodsName.type = "添加"
-				this.goodsid = id
-
-				console.log(this.goodsid);
-			} else {
-				this.goodsName.Name = "商品信息修改"
-				this.goodsName.type = "修改"
+			async created() {
 
 				const {
-					data
-				} = await this.$request.get("/goods/" + id)
+					id
+				} = this.$route.params
 
-				this.goodsid = id
 
-				Object.assign(this.ruleForm, data.data)
+				if (id == 0) {
+					this.goodsName.Name = "添加商品"
+					this.goodsName.type = "添加"
+					this.goodsid = id
+
+					console.log(this.goodsid);
+				} else {
+					this.goodsName.Name = "商品信息修改"
+					this.goodsName.type = "修改"
+
+					this.goodsName.back = "取消"
+
+					const {
+						data
+					} = await this.$request.get("/goods/" + id)
+
+					this.goodsid = id
+
+					Object.assign(this.ruleForm, data.data)
+
+
+				}
+
 
 
 			}
-
-
-
 		}
-
-
 	}
 </script>
 

@@ -15,12 +15,12 @@ Vue.use(VueRouter)
 
 const routes = [
 
-		{
-			path:'',
-			//默认地址
-			redirect:'/add'
-		},
-		{
+	{
+		path: '',
+		//默认地址
+		redirect: '/add'
+	},
+	{
 		path: '',
 		name: 'Home',
 		component: Home,
@@ -29,8 +29,8 @@ const routes = [
 				redirect: 'user'
 			},
 			{
-				path:'/add',
-				component:Add
+				path: '/add',
+				component: Add
 			},
 			{
 				path: 'user',
@@ -59,31 +59,33 @@ const routes = [
 			},
 
 			//默认子路由
-		],redirect:'/add'
-		},
-		{
-			path: '/home',
-			name: 'Home',
-			component: Home
-		},
-		{
-			path: '/login',
-			name:'Login',
-			component: Login
-		},
+		],
+		redirect: '/add'
+	},
+	{
+		path: '/home',
+		name: 'Home',
+		component: Home
+	},
+	{
+		path: '/login',
+		name: 'Login',
+		component: Login
+	},
 
-		{   path: '/reg', 
-			name:'Reg',
-			component: Reg
-		},
-		{
-			path: '/404',
-			component: NotFound
-		},
-		{
-			path: '*',
-			redirect: '/404'
-		},
+	{
+		path: '/reg',
+		name: 'Reg',
+		component: Reg
+	},
+	{
+		path: '/404',
+		component: NotFound
+	},
+	{
+		path: '*',
+		redirect: '/404'
+	},
 
 ]
 
