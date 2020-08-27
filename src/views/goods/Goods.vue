@@ -110,8 +110,8 @@
 			async refresh(){
 				
 					let {data} = await this.$request.get("/goods");
-					
 					this.goodsList = data.data
+					this.goodsName.paging = "false"
 					},
 			async addItem(name) {
 				const url = "classify/:id" + "?" + "classify=" + name
@@ -125,24 +125,21 @@
 
 			},
 			async currentPage(idx) {
-
 				let url = ""
-
 				if (this.goodsName.paging === "true") {
 					url = "/classify/:id" + "?" + "classify=" + this.goodsName.name + "&" + 'page=' + idx
 
+					
 				} else {
 					url = '?page=' + idx
 				}
-
-				console.log('url=', url);
+				
 				let {
 					data
 				} = await this.$request.get("/goods" + url);
 
 				this.goodsList = data.data
-
-
+			
 			},
 
 			async deleteGoods(id) {
@@ -199,7 +196,7 @@
 			} = await this.$request.get("/goods");
 			this.goodsList = data.data
 
-const {data:goodss} = await this.$request.get("/goods/paging")
+      const {data:goodss} = await this.$request.get("/goods/paging")
 		this.goodss = goodss.data
 
 		}
