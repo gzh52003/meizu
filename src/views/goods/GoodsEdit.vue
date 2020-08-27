@@ -104,40 +104,38 @@
 				this.$router.back();
 			},
 
-
-			async created() {
-
+			
+		},
+		async created() {
+		
+			const {id} = this.$route.params
+		
+			
+			if (id == 0) {
+				this.goodsName.Name = "添加商品"
+				this.goodsName.type = "添加"
+				this.goodsid = id
+		
+				
+			} else {
+				this.goodsName.Name = "商品信息修改"
+				this.goodsName.type = "修改"
+		
+				this.goodsName.back = "取消"
+		
 				const {
-					id
-				} = this.$route.params
-
-
-				if (id == 0) {
-					this.goodsName.Name = "添加商品"
-					this.goodsName.type = "添加"
-					this.goodsid = id
-
-					console.log(this.goodsid);
-				} else {
-					this.goodsName.Name = "商品信息修改"
-					this.goodsName.type = "修改"
-
-					this.goodsName.back = "取消"
-
-					const {
-						data
-					} = await this.$request.get("/goods/" + id)
-
-					this.goodsid = id
-
-					Object.assign(this.ruleForm, data.data)
-
-
-				}
-
-
-
+					data
+				} = await this.$request.get("/goods/" + id)
+		
+				this.goodsid = id
+			
+				Object.assign(this.ruleForm, data.data)
+		
+		
 			}
+		
+		
+		
 		}
 	}
 </script>
