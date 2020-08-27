@@ -186,17 +186,12 @@
 		},
 
 		async created() {
-
-
 			let {
 				data
 			} = await this.$request.get("/goods");
 			this.goodsList = data.data
-
-const {data:goodss} = await this.$request.get("/goods/paging")
-		this.goodss = goodss.data
-		console.log(this.goodss.length);
-
+			const {data:goodss} = await this.$request.get("/goods/paging")
+			this.goodss = goodss.data
 		}
 
 

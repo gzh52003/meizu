@@ -6,16 +6,15 @@
 					<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="70px" class="demo-ruleForm">
 
 						<el-form-item label="账号" prop="user">
-							<el-input type="text" v-model="ruleForm.user" autocomplete="off" placeholder="账号"></el-input>
+							<el-input type="text" v-model="ruleForm.user" autocomplete="off" placeholder="账号" clearable></el-input>
 						</el-form-item>
 
 						<el-form-item label="密码" prop="pass">
-							<el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password placeholder="密码"></el-input>
+							<el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password placeholder="密码" clearable></el-input>
 						</el-form-item>
 
 						<el-form-item label="验证码" prop="vcode">
-							<el-input type="text" v-model="ruleForm.vcode" autocomplete="off" placeholder="验证码">
-
+							<el-input type="text" v-model="ruleForm.vcode" autocomplete="off" placeholder="验证码" clearable>
 								<template slot="append">
 									<div v-html="vcode" @click="Rvcode" style="height:38px"></div>
 								</template>
@@ -24,7 +23,7 @@
 
 						<el-form-item>
 							<el-button @click="log('ruleForm')" type="success">登录</el-button>
-							<el-button @click="goReg('ruleForm')">注册</el-button>
+							<el-button @click="goReg" size="mini">注册</el-button>
 						</el-form-item>
 					</el-form>
 				</div>
@@ -46,8 +45,11 @@
 			};
 
 			var validatePass = (rule, value, callback) => {
+				let zz = /^\S+$/
 				if (value === "") {
 					callback(new Error("请输入密码"));
+				} else if(!(zz.test(value))){
+					callback(new Error("密码不能含空格"));
 				} else {
 					callback();
 				}

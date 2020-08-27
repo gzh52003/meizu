@@ -103,9 +103,8 @@
 			back() {
 				this.$router.back();
 			},
-
-
-			async created() {
+		},
+		async created() {
 
 				const {
 					id
@@ -134,11 +133,7 @@
 
 
 				}
-
-
-
 			}
-		}
 	}
 </script>
 

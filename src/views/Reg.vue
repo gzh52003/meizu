@@ -8,22 +8,30 @@
 					<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="70px" class="demo-ruleForm">
 						<el-form-item label="账号" prop="username">
 
-							<el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号" @keyup.enter="reg('ruleForm')"></el-input>
+							<el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="账号" @keyup.enter="reg('ruleForm')" clearable></el-input>
 
 						</el-form-item>
 
 						<el-form-item label="密码" prop="password">
-							<el-input type="password" v-model="ruleForm.password" autocomplete="off" show-password placeholder="密码"></el-input>
+							<el-input type="password" v-model="ruleForm.password" autocomplete="off" show-password placeholder="密码" clearable></el-input>
 						</el-form-item>
 
 						<el-form-item label="确认密码" prop="checkPass">
-							<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password placeholder="确认密码"></el-input>
+							<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password placeholder="确认密码" clearable></el-input>
+						</el-form-item>
+
+						<el-form-item label="验证码" prop="vcode">
+							<el-input type="text" v-model="ruleForm.vcode" autocomplete="off" placeholder="验证码">
+								<template slot="append">
+									<div v-html="vcode" @click="Rvcode" style="height:38px"></div>
+								</template>
+							</el-input>
 						</el-form-item>
 
 						<el-form-item>
 							<el-button @click="reg('ruleForm')" type="success">注册</el-button>
 
-							<el-button @click="goLog">登录</el-button>
+							<el-button @click="goLog" size="mini">登录</el-button>
 						</el-form-item>
 					</el-form>
 				</div>
@@ -45,19 +53,28 @@
 				const {
 					data: checkData
 				} = await this.$request.get(checkUrl)
+				//空格正则
+				let zz1 = /^\S+$/
+				//中文正则
+				// let zz2 = /^[\u4e00-\u9fa5]{2,4}$/
 				if (value === "") {
 					callback(new Error("请输入账号"));
 				} else if (checkData.code === 0) {
 					callback(new Error("用户已存在"));
 					console.log(checkData.code);
+				} else if(!(zz1.test(value))){
+					callback(new Error("账号不能含空格"));
 				} else {
 					callback();
 				}
 			};
 
 			var validatePass = (rule, value, callback) => {
+				let zz = /^\S+$/
 				if (value === "") {
 					callback(new Error("请输入密码"));
+				}else if(!(zz.test(value))){
+					callback(new Error("密码不能含空格"));
 				} else {
 					if (this.ruleForm.checkPass !== '') {
 						this.$refs.ruleForm.validateField('checkPass');
@@ -75,11 +92,22 @@
 					callback();
 				}
 			};
+
+			var validateVcode = (rule, value, callback) => {
+				if (value === "") {
+					callback(new Error("请输入验证码"));
+				} else {
+					callback();
+				}
+			};
+
+
 			return {
 				ruleForm: {
 					username: "",
 					password: "",
 					checkPass: "",
+					vcode: ""
 				},
 				rules: {
 
@@ -95,8 +123,14 @@
 						validator: validatePass2,
 						trigger: "change"
 					}],
-
+					vcode: [{
+						validator: validateVcode,
+						trigger: "change"
+					}]
 				},
+				vcode: {
+					data: ""
+				}
 
 			};
 
@@ -137,7 +171,21 @@
 			goLog() {
 				this.$router.push('/login')
 			},
+			async Rvcode() {
+				let url = `/vcode`;
+				const {
+					data
+				} = await this.$request.get(url);
+				this.vcode = (data.data)
+			}
 		},
+		async created() {
+			let url = `/vcode`;
+			const {
+				data
+			} = await this.$request.get(url);
+			this.vcode = (data.data)
+		}
 	};
 </script>
 

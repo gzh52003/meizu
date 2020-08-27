@@ -24,8 +24,8 @@
 		<el-container>
 			<el-aside width="200px">
 				<el-menu style="heights:100%" :default-active="activeIndex" mode="vertical" background-color="#545c64" text-color="#fff" active-text-color="#008cff" @select="changeMenu" :default-openeds="openMenu" router>
-					<template v-for="item in menu">
-						<el-menu-item :index="item.path" :key="item.path" v-if="!item.submenu">
+					<template v-for="item in menu" >
+						<el-menu-item :index="item.path" :key="item.path" v-if="!item.submenu" v-show="item.isShow == true">
 							<i :class="item.icon" style="color:#fff"></i>
 							{{item.text}}
 						</el-menu-item>
@@ -57,27 +57,31 @@
 					username: ""
 				},
 				activeIndex: "/home",
-
 				openMenu: [],
+				
 				menu: [{
 						text: "首页",
 						path: "/add",
 						icon: "el-icon-s-home",
+						isShow: true
 					},
 					{
 						text: "用户管理",
 						path: "/user",
 						icon: "el-icon-user-solid",
+						isShow: JSON.parse(localStorage.getItem("data")).power === "admin"?true:false
 					},
 					{
 						text: "商品管理",
 						path: "/goods",
 						icon: "el-icon-s-goods",
+						isShow: true
 					},
 					{
 						text: "订单管理",
 						path: "/order",
 						icon: "el-icon-s-order",
+						isShow: true
 					},
 				],
 				currentIndex: 0,
@@ -126,6 +130,8 @@
 					name: "Login"
 				});
 			}
+
+		
 		},
 	};
 </script>
