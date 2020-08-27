@@ -179,7 +179,7 @@
 				this.$router.push({
 					name: 'goodsEdit',
 					params: {
-						id: "0"
+						id: 0
 					}
 				})
 

@@ -139,7 +139,7 @@
 				this.userName.Name = "添加用户";
 				this.userName.type = "添加";
 				this.userid = id
-				console.log(this.userid);
+			
 			} else {
 				this.userName.Name = "用户信息修改";
 				this.userName.a = "disabled";
@@ -147,7 +147,7 @@
 				const {
 					data
 				} = await this.$request.get("/user/" + id);
-				console.log('user=', data);
+			
 				this.userid = id;
 				Object.assign(this.ruleForm, data.data);
 			}
