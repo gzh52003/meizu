@@ -53,7 +53,6 @@
 			<el-pagination style="float:left;margin-left:150px;margin-top:30px" @current-change="currentPage" background layout="prev, pager, next,jumper" :total="this.goodss.length">
 			</el-pagination>
 		</div>
-
 	</div>
 </template>
 
@@ -215,11 +214,9 @@ const {data:goodss} = await this.$request.get("/goods/paging")
 		cursor: pointer;
 		color: #409EFF;
 	}
-
 	.addTo {
 		margin-left: 20px !important;
 	}
-
 	.el-dropdown-link {
 		display: inline-block;
 		width: 90px;
